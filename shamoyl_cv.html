@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>shamoyl poonawala — resume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --ink:#121212;
+    --muted:#9a9a9a;
+    --soft:#6b6b6b;
+    --hair:#e7e7e7;
+    --hair-strong:#cfcfcf;
+    --yellow:#f5b700;
+    --yellow-soft:#fff3cf;
+    --display:'Inter',system-ui,sans-serif;
+    --mono:'Space Mono','Courier New',monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--mono);
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  /* ===== screens ===== */
+  .screen{
+    display:none;
+    min-height:100svh;
+    padding:clamp(28px,6vw,72px) clamp(22px,6vw,48px) 80px;
+    max-width:820px;
+    margin:0 auto;
+  }
+  .screen.active{display:block;}
+
+  .screen.active .reveal{
+    animation:rise .55s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .reveal:nth-child(1){animation-delay:.02s;}
+  .reveal:nth-child(2){animation-delay:.08s;}
+  .reveal:nth-child(3){animation-delay:.14s;}
+  .reveal:nth-child(4){animation-delay:.20s;}
+  .reveal:nth-child(5){animation-delay:.26s;}
+  .reveal:nth-child(6){animation-delay:.32s;}
+  .reveal:nth-child(7){animation-delay:.38s;}
+
+  @keyframes rise{
+    from{opacity:0;transform:translateY(16px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* ===== shared type ===== */
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  h1.name{
+    font-family:var(--display);
+    font-weight:900;
+    text-transform:lowercase;
+    font-size:clamp(2.7rem,11vw,5.6rem);
+    line-height:.95;
+    letter-spacing:-.03em;
+    margin:18px 0 14px;
+  }
+
+  .title{
+    font-family:var(--display);
+    font-weight:800;
+    text-transform:lowercase;
+    font-size:clamp(2rem,8vw,3.6rem);
+    line-height:1;
+    letter-spacing:-.025em;
+    display:flex;
+    align-items:baseline;
+    gap:.5em;
+    margin-bottom:6px;
+  }
+  .title .num{
+    font-family:var(--mono);
+    font-weight:700;
+    font-size:.32em;
+    color:var(--yellow);
+    letter-spacing:.1em;
+    transform:translateY(-.4em);
+  }
+
+  .sub{
+    font-size:.86rem;
+    letter-spacing:.06em;
+    color:var(--soft);
+    margin-bottom:42px;
+  }
+
+  p.body{
+    font-size:1rem;
+    color:#2a2a2a;
+    margin-bottom:20px;
+    max-width:60ch;
+  }
+  p.body b{font-weight:700;color:var(--ink);}
+
+  /* ===== HOME ===== */
+  #home{
+    display:none;
+    position:relative;
+    overflow:hidden;
+    min-height:100svh;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:48px 22px 60px;
+    max-width:760px;
+    margin:0 auto;
+  }
+  #home.active{display:flex;}
+  #home > *:not(.home-bg){position:relative;z-index:1;}
+
+  /* ===== animated background ===== */
+  .home-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+  .home-bg .grid{
+    position:absolute;inset:-30%;
+    background-image:radial-gradient(circle,#e6e6e6 1px,transparent 1.5px);
+    background-size:28px 28px;
+    opacity:.55;
+    animation:gridDrift 24s linear infinite;
+  }
+  @keyframes gridDrift{from{transform:translate(0,0);}to{transform:translate(28px,28px);}}
+  .home-bg .glow{
+    position:absolute;border-radius:50%;
+    background:radial-gradient(circle,rgba(245,183,0,.20),rgba(245,183,0,0) 70%);
+  }
+  .home-bg .glow.a{width:540px;height:540px;top:-160px;left:50%;margin-left:-270px;animation:floatA 9s ease-in-out infinite;}
+  .home-bg .glow.b{width:380px;height:380px;bottom:-140px;right:-80px;background:radial-gradient(circle,rgba(245,183,0,.14),rgba(245,183,0,0) 70%);animation:floatB 11s ease-in-out infinite;}
+  @keyframes floatA{0%,100%{transform:translate(0,0) scale(1);opacity:.8;}50%{transform:translate(0,26px) scale(1.1);opacity:1;}}
+  @keyframes floatB{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-30px,-22px) scale(1.12);}}
+
+  /* ===== name line reveal ===== */
+  h1.name{margin:14px 0 16px;}
+  h1.name .line{display:block;overflow:hidden;padding-bottom:.04em;}
+  h1.name .line-inner{
+    display:block;
+    transform:translateY(115%);
+  }
+  #home.active h1.name .line-inner{
+    animation:lineUp .85s cubic-bezier(.16,.84,.28,1) forwards;
+  }
+  #home.active h1.name .line:nth-child(1) .line-inner{animation-delay:.10s;}
+  #home.active h1.name .line:nth-child(2) .line-inner{animation-delay:.22s;}
+  @keyframes lineUp{to{transform:translateY(0);}}
+
+  /* yellow sweep under the name */
+  .name-rule{
+    height:4px;width:0;background:var(--yellow);border-radius:2px;
+    margin:0 auto 22px;
+  }
+  #home.active .name-rule{animation:sweep .7s ease-out .55s forwards;}
+  @keyframes sweep{to{width:140px;}}
+
+  /* ===== typewriter tagline ===== */
+  .tagline{
+    font-size:.92rem;
+    letter-spacing:.04em;
+    color:var(--soft);
+    margin-bottom:16px;
+  }
+  .type-line{
+    font-size:.95rem;
+    letter-spacing:.04em;
+    color:var(--soft);
+    min-height:1.5em;
+    margin-bottom:18px;
+  }
+  .type-line #typed{color:var(--ink);font-weight:700;}
+  .t-cursor{
+    display:inline-block;color:var(--yellow);font-weight:700;
+    animation:blink 1.05s step-end infinite;
+  }
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+
+  .prompt{
+    font-size:.82rem;
+    letter-spacing:.05em;
+    color:var(--soft);
+    margin-bottom:40px;
+    display:flex;align-items:center;gap:9px;justify-content:center;
+  }
+  .status-dot{
+    width:9px;height:9px;border-radius:50%;background:#2ec06a;
+    animation:ping 1.9s ease-out infinite;
+  }
+  @keyframes ping{
+    0%{box-shadow:0 0 0 0 rgba(46,192,106,.5);}
+    70%{box-shadow:0 0 0 11px rgba(46,192,106,0);}
+    100%{box-shadow:0 0 0 0 rgba(46,192,106,0);}
+  }
+
+  /* bouncing hint */
+  .scroll-hint{
+    font-size:1.2rem;color:var(--muted);margin:4px 0 16px;
+    animation:bounceY 1.9s ease-in-out infinite;
+  }
+  @keyframes bounceY{0%,100%{transform:translateY(0);}50%{transform:translateY(6px);}}
+
+  /* ===== home menu ===== */
+  .menu{
+    width:100%;
+    max-width:520px;
+    border-top:1px solid var(--hair);
+  }
+  .menu-item{
+    width:100%;
+    position:relative;
+    background:none;
+    border:none;
+    border-bottom:1px solid var(--hair);
+    font-family:var(--mono);
+    color:var(--ink);
+    text-align:left;
+    padding:20px 6px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    transition:padding .25s ease,background .25s ease;
+  }
+  .menu-item::before{
+    content:"";position:absolute;left:0;top:50%;
+    transform:translateY(-50%);
+    width:3px;height:0;background:var(--yellow);
+    transition:height .25s ease;
+  }
+  .menu-item:hover::before,
+  .menu-item:focus-visible::before{height:62%;}
+  .menu-item .mi-num{
+    font-size:.8rem;
+    color:var(--muted);
+    min-width:30px;
+    transition:color .25s ease;
+  }
+  .menu-item .mi-label{
+    font-family:var(--display);
+    font-weight:800;
+    text-transform:lowercase;
+    font-size:1.4rem;
+    letter-spacing:-.01em;
+    flex:1;
+  }
+  .menu-item .mi-arrow{
+    font-size:1.1rem;
+    color:var(--muted);
+    opacity:0;
+    transform:translateX(-10px);
+    transition:opacity .25s ease,transform .25s ease,color .25s ease;
+  }
+  .menu-item:hover,
+  .menu-item:focus-visible{
+    background:var(--yellow-soft);
+    padding-left:18px;
+    outline:none;
+  }
+  .menu-item:hover .mi-num,
+  .menu-item:focus-visible .mi-num{color:var(--ink);}
+  .menu-item:hover .mi-arrow,
+  .menu-item:focus-visible .mi-arrow{
+    opacity:1;transform:translateX(0);color:var(--ink);
+  }
+
+  /* ===== back bar ===== */
+  .back-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:46px;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--hair);
+  }
+  .back-btn{
+    background:none;
+    border:none;
+    font-family:var(--mono);
+    font-size:.8rem;
+    letter-spacing:.06em;
+    color:var(--soft);
+    cursor:pointer;
+    padding:6px 0;
+    transition:color .2s ease,transform .2s ease;
+  }
+  .back-btn:hover,.back-btn:focus-visible{
+    color:var(--ink);transform:translateX(-4px);outline:none;
+  }
+  .back-id{
+    font-size:.68rem;
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* ===== meta grid ===== */
+  .meta{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--hair);
+    border:1px solid var(--hair);
+    margin:34px 0 10px;
+  }
+  .meta div{background:var(--paper);padding:16px 18px;}
+  .meta .k{
+    font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:5px;
+  }
+  .meta .v{font-size:.9rem;color:var(--ink);font-weight:700;}
+
+  /* ===== block label ===== */
+  .block-label{
+    font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--muted);
+    margin:40px 0 16px;
+    padding-bottom:8px;
+    border-bottom:1px solid var(--hair);
+  }
+
+  /* ===== tags ===== */
+  .tags{display:flex;flex-wrap:wrap;gap:10px;}
+  .tag{
+    font-size:.78rem;
+    padding:9px 15px;
+    border:1px solid var(--hair-strong);
+    border-radius:2px;
+    color:#333;
+    transition:all .2s ease;
+    cursor:default;
+  }
+  .tag:hover{
+    border-color:var(--yellow);
+    background:var(--yellow-soft);
+    color:var(--ink);
+    transform:translateY(-2px);
+  }
+
+  /* ===== experience list ===== */
+  .exp{list-style:none;}
+  .exp li{
+    padding:22px 0 22px 26px;
+    border-bottom:1px solid var(--hair);
+    position:relative;
+  }
+  .exp li::before{
+    content:"";
+    position:absolute;left:0;top:30px;
+    width:9px;height:9px;border-radius:50%;
+    background:var(--yellow);
+  }
+  .exp .ex-tag{
+    font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--muted);margin-bottom:7px;
+  }
+  .exp .ex-text{font-size:.95rem;color:#222;max-width:62ch;}
+
+  /* ===== education rows ===== */
+  .edu-row{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:18px;
+    padding:22px 0;
+    border-bottom:1px solid var(--hair);
+  }
+  .edu-row .e-name{font-size:.95rem;color:#222;}
+  .edu-row .e-name span{display:block;font-size:.7rem;color:var(--muted);margin-top:3px;letter-spacing:.08em;}
+  .edu-row .e-score{
+    font-family:var(--display);font-weight:900;
+    font-size:clamp(1.5rem,5vw,2.2rem);
+    color:var(--ink);
+    white-space:nowrap;
+  }
+  .edu-meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;}
+  .edu-chip{
+    border:1px solid var(--hair-strong);
+    padding:14px 22px;text-align:center;border-radius:2px;
+  }
+  .edu-chip b{display:block;font-family:var(--display);font-weight:900;font-size:1.5rem;}
+  .edu-chip span{font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+
+  /* ===== contact ===== */
+  .contact-list{list-style:none;margin-bottom:36px;}
+  .contact-list li{
+    display:flex;gap:16px;align-items:baseline;
+    padding:16px 0;border-bottom:1px solid var(--hair);
+    font-size:.95rem;flex-wrap:wrap;
+  }
+  .contact-list .c-key{
+    min-width:88px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
+  }
+  .contact-list a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--yellow);}
+  .contact-list a:hover{background:var(--yellow-soft);}
+  .dot{color:var(--yellow);animation:blink 1.4s step-end infinite;}
+
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
+  .cta{
+    font-family:var(--mono);font-weight:700;font-size:.82rem;
+    letter-spacing:.05em;text-decoration:none;
+    padding:15px 26px;border-radius:2px;
+    transition:transform .2s ease,box-shadow .2s ease;
+  }
+  .cta.solid{background:var(--ink);color:var(--paper);}
+  .cta.solid:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.18);}
+  .cta.ghost{background:none;color:var(--ink);border:1px solid var(--ink);}
+  .cta.ghost:hover{transform:translateY(-2px);background:var(--yellow-soft);}
+
+  .lang-line{font-size:.92rem;color:#2a2a2a;line-height:2;}
+  .lang-line b{font-weight:700;}
+
+  footer.site{
+    text-align:center;font-size:.66rem;letter-spacing:.18em;
+    color:var(--muted);padding:40px 0 24px;
+    text-transform:uppercase;
+  }
+
+  @media (max-width:560px){
+    .meta{grid-template-columns:1fr;}
+    .edu-row{flex-direction:row;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto;}
+    h1.name .line-inner{transform:none!important;}
+    .name-rule{width:140px!important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== HOME ========== -->
+<section id="home" class="screen active">
+  <div class="home-bg" aria-hidden="true">
+    <div class="grid"></div>
+    <div class="glow a"></div>
+    <div class="glow b"></div>
+  </div>
+
+  <div class="eyebrow reveal">resume // 2026</div>
+
+  <h1 class="name">
+    <span class="line"><span class="line-inner">shamoyl</span></span>
+    <span class="line"><span class="line-inner">poonawala</span></span>
+  </h1>
+
+  <div class="tagline reveal">commerce graduate · adventurer · future business leader</div>
+  <div class="prompt reveal">open to opportunities</div>
+
+  <nav class="menu reveal" aria-label="sections">
+    <button class="menu-item" onclick="go('about')"><span class="mi-num">01</span><span class="mi-label">about</span><span class="mi-arrow">→</span></button>
+    <button class="menu-item" onclick="go('experience')"><span class="mi-num">02</span><span class="mi-label">experience</span><span class="mi-arrow">→</span></button>
+    <button class="menu-item" onclick="go('skills')"><span class="mi-num">03</span><span class="mi-label">skills</span><span class="mi-arrow">→</span></button>
+    <button class="menu-item" onclick="go('education')"><span class="mi-num">04</span><span class="mi-label">education</span><span class="mi-arrow">→</span></button>
+    <button class="menu-item" onclick="go('contact')"><span class="mi-num">05</span><span class="mi-label">contact</span><span class="mi-arrow">→</span></button>
+  </nav>
+</section>
+
+<!-- ========== ABOUT ========== -->
+<section id="about" class="screen">
+  <div class="back-bar reveal">
+    <button class="back-btn" onclick="go('home')">← back</button>
+    <span class="back-id">01 / about</span>
+  </div>
+  <h2 class="title reveal"><span class="num">01</span>about</h2>
+  <div class="sub reveal">who i am</div>
+
+  <p class="body reveal">I'm <b>shamoyl poonawala</b>. I finished grade 12 in the commerce stream — economics, accountancy and physical education — at barnes school &amp; junior college, nashik, in 2026.</p>
+  <p class="body reveal">I'm looking for a real shot at business and finance: somewhere i can build industry-relevant skills, learn how things actually run, and be useful from day one. give me a problem, not just a textbook.</p>
+
+  <div class="meta reveal">
+    <div><div class="k">location</div><div class="v">mumbai, india</div></div>
+    <div><div class="k">school</div><div class="v">barnes school &amp; jc, nashik</div></div>
+    <div><div class="k">specialisation</div><div class="v">commerce stream</div></div>
+    <div><div class="k">focus</div><div class="v">business &amp; finance</div></div>
+  </div>
+
+  <div class="reveal">
+    <div class="block-label">languages</div>
+    <p class="lang-line"><b>fluent:</b> english, hindi, gujarati<br><b>conversational / basic:</b> marathi, french, arabic</p>
+  </div>
+</section>
+
+<!-- ========== EXPERIENCE ========== -->
+<section id="experience" class="screen">
+  <div class="back-bar reveal">
+    <button class="back-btn" onclick="go('home')">← back</button>
+    <span class="back-id">02 / experience</span>
+  </div>
+  <h2 class="title reveal"><span class="num">02</span>experience</h2>
+  <div class="sub reveal">things i've actually done</div>
+
+  <ul class="exp reveal">
+    <li>
+      <div class="ex-tag">certification · 2024 · koh tao, thailand</div>
+      <div class="ex-text">padi open water certified at the age of 15 — one of the world's most recognised scuba diving qualifications.</div>
+    </li>
+    <li>
+      <div class="ex-tag">leadership · national cadet corps</div>
+      <div class="ex-text">graduated the ncc 'a' certificate camp — one of the indian government's most rigorous leadership and adventure programmes.</div>
+    </li>
+    <li>
+      <div class="ex-tag">mountaineering · himalayas</div>
+      <div class="ex-text">completed a 15-day adventure mountaineering course at the himalayan mountaineering institute — trekking 95 km from darjeeling through nepal to the sandakphu summit, the highest point in west bengal.</div>
+    </li>
+    <li>
+      <div class="ex-tag">competitions · nashik &amp; mumbai</div>
+      <div class="ex-text">multiple wins in quiz, dramatics, swimming and football — representing the school across inter-school competitions.</div>
+    </li>
+    <li>
+      <div class="ex-tag">academics · barnes school</div>
+      <div class="ex-text">consistently excelled — ranked 1st in the commerce stream in class 11, and 2nd in class 12.</div>
+    </li>
+  </ul>
+</section>
+
+<!-- ========== SKILLS ========== -->
+<section id="skills" class="screen">
+  <div class="back-bar reveal">
+    <button class="back-btn" onclick="go('home')">← back</button>
+    <span class="back-id">03 / skills</span>
+  </div>
+  <h2 class="title reveal"><span class="num">03</span>skills</h2>
+  <div class="sub reveal">what i bring to the table</div>
+
+  <div class="reveal">
+    <div class="block-label">soft skills</div>
+    <div class="tags">
+      <span class="tag">leadership</span>
+      <span class="tag">teamwork</span>
+      <span class="tag">communication</span>
+      <span class="tag">adaptability</span>
+      <span class="tag">problem solving</span>
+      <span class="tag">time management</span>
+      <span class="tag">resilience</span>
+      <span class="tag">initiative</span>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="block-label">tools &amp; software</div>
+    <div class="tags">
+      <span class="tag">ms excel</span>
+      <span class="tag">ms word</span>
+      <span class="tag">powerpoint</span>
+      <span class="tag">canva</span>
+      <span class="tag">chatgpt</span>
+      <span class="tag">claude</span>
+    </div>
+  </div>
+
+  <div class="reveal">
+    <div class="block-label">domain knowledge</div>
+    <div class="tags">
+      <span class="tag">commerce</span>
+      <span class="tag">business finance</span>
+      <span class="tag">physical education</span>
+      <span class="tag">accountancy</span>
+      <span class="tag">economics</span>
+    </div>
+  </div>
+</section>
+
+<!-- ========== EDUCATION ========== -->
+<section id="education" class="screen">
+  <div class="back-bar reveal">
+    <button class="back-btn" onclick="go('home')">← back</button>
+    <span class="back-id">04 / education</span>
+  </div>
+  <h2 class="title reveal"><span class="num">04</span>education</h2>
+  <div class="sub reveal">the record</div>
+
+  <p class="body reveal"><b>barnes school &amp; junior college</b> — nashik, india · 2012–2026</p>
+
+  <div class="reveal">
+    <div class="edu-row">
+      <div class="e-name">grade 12 board examination<span>commerce stream</span></div>
+      <div class="e-score">88%</div>
+    </div>
+    <div class="edu-row">
+      <div class="e-name">grade 10 board examination</div>
+      <div class="e-score">83%</div>
+    </div>
+  </div>
+
+  <div class="edu-meta reveal">
+    <div class="edu-chip"><b>#1</b><span>stream rank · class 11</span></div>
+    <div class="edu-chip"><b>#2</b><span>stream rank · class 12</span></div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section id="contact" class="screen">
+  <div class="back-bar reveal">
+    <button class="back-btn" onclick="go('home')">← back</button>
+    <span class="back-id">05 / contact</span>
+  </div>
+  <h2 class="title reveal"><span class="num">05</span>contact</h2>
+  <div class="sub reveal">let's talk</div>
+
+  <ul class="contact-list reveal">
+    <li><span class="c-key">email</span><a href="mailto:shamoylp@gmail.com">shamoylp@gmail.com</a></li>
+    <li><span class="c-key">linkedin</span><a href="https://www.linkedin.com/in/shamoyl-poonawala-7021203ba/" target="_blank" rel="noopener">in/shamoyl-poonawala</a></li>
+    <li><span class="c-key">base</span>mumbai, maharashtra, india</li>
+    <li><span class="c-key">status</span>open to opportunities <span class="dot">●</span></li>
+  </ul>
+</section>
+
+<footer class="site">shamoyl poonawala · 2026</footer>
+
+<script>
+  // show a section (visual only)
+  function showSection(id){
+    var el=document.getElementById(id) || document.getElementById('home');
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});
+    el.classList.add('active');
+    el.querySelectorAll('.reveal').forEach(function(n){
+      n.style.animation='none';
+      void n.offsetWidth;
+      n.style.animation='';
+    });
+    window.scrollTo({top:0,behavior:'auto'});
+  }
+
+  // read the url and show the matching section
+  function render(){
+    showSection(location.hash.slice(1) || 'home');
+  }
+
+  // navigate: changing the hash creates a real history step,
+  // so the browser back/forward arrows move between cv sections.
+  function go(id){
+    var target = (id==='home') ? '' : id;
+    if((location.hash.slice(1)) === target){ render(); return; }
+    location.hash = target;   // fires hashchange -> render()
+  }
+
+  // back / forward arrows (and deep links) all flow through here
+  window.addEventListener('hashchange', render);
+
+  // keyboard: Esc returns home
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      var home=document.getElementById('home');
+      if(!home.classList.contains('active')) go('home');
+    }
+  });
+
+  // initial paint (handles refresh / shared links to a section)
+  render();
+
+  // typewriter rotating roles
+  (function(){
+    var el=document.getElementById('typed');
+    if(!el) return;
+    var words=['a commerce graduate','an adventurer','a future business leader','a problem solver'];
+    var reduce=window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduce){ el.textContent=words[0]; return; }
+    var w=0,c=0,deleting=false;
+    function tick(){
+      var word=words[w];
+      if(!deleting){
+        c++; el.textContent=word.slice(0,c);
+        if(c===word.length){ deleting=true; return setTimeout(tick,1500); }
+        return setTimeout(tick,70);
+      } else {
+        c--; el.textContent=word.slice(0,c);
+        if(c===0){ deleting=false; w=(w+1)%words.length; return setTimeout(tick,320); }
+        return setTimeout(tick,38);
+      }
+    }
+    setTimeout(tick,750);
+  })();
+</script>
+</body>
+</html>
